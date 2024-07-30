@@ -1,8 +1,9 @@
 <?php
-require_once '../src/Note.php';
+require_once '../src/Note.php'; // src papkasi view papkasidan bir daraja yuqorida joylashgan
 
 $note = new Note();
 
+// Notlarni olish
 $notes = $note->getNotes();
 ?>
 
@@ -43,7 +44,8 @@ $notes = $note->getNotes();
                 <form action="../notes_action.php" method="POST" style="display:inline;">
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" value="<?php echo htmlspecialchars($noteItem['id']); ?>">
-                    <input type="text" name="new_note" class="form-control d-inline-block w-50" placeholder="Edit note" required>
+                    <input type="text" name="new_note" class="form-control d-inline-block w-50" placeholder="Edit note"
+                           required>
                     <button type="submit" class="btn btn-warning ml-2">Edit</button>
                 </form>
                 <!-- Delete Note Form -->
