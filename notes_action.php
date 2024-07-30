@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $noteText = $_POST['note'] ?? '';
         if ($noteText !== '') {
             $note = new Note();
-            $note->addNotes($noteText);
+            $note->saveNote($noteText);
         }
     } elseif ($action === 'delete') {
         $id = $_POST['id'] ?? '';

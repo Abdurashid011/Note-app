@@ -1,6 +1,6 @@
 <?php
 
-require_once 'DB.php'; // Faylni to'g'ri yo'nalishda chaqiring
+require_once 'DB.php';
 
 class Note
 {
@@ -11,17 +11,16 @@ class Note
         $this->pdo = DB::connect();
     }
 
-    public function addNotes(string $note): void
-    {
-        $stmt = $this->pdo->prepare("INSERT INTO notes_app (note) VALUES (:note)");
-        $stmt->bindParam(':note', $note);
-        $stmt->execute();
-    }
-
     public function getNotes(): array
     {
         $stmt = $this->pdo->query('SELECT * FROM notes_app');
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function saveNote(string $text, int|null $userId = null)
+    {
+        $save = $this->pdo->prepare('INSERT INTO notes_app (note, user_id) VALUES (:title, :user_id)');
+        $save->execute(['title' => $text, 'user_id' => $userId]);
     }
 
     public function deleteNote(int $id): void
@@ -37,5 +36,12 @@ class Note
         $stmt->bindParam(':note', $newNote);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
+    }
+
+    public function getAllTodosByUser(int $userId)
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM notes_app WHERE user_id = :user_id');
+        $stmt->execute(['user_id' => $userId]);
+        return $stmt->fetchAll();
     }
 }

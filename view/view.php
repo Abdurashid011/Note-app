@@ -1,9 +1,8 @@
 <?php
-require_once '../src/Note.php'; // src papkasi view papkasidan bir daraja yuqorida joylashgan
+require_once '../src/Note.php';
 
 $note = new Note();
 
-// Notlarni olish
 $notes = $note->getNotes();
 ?>
 
